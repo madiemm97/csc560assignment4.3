@@ -35,11 +35,11 @@ app.use(function (req, res, next) {
  */
 app.get('/lists', (req, res) => {
     // we want to return an array of all of the lists in the DB 
-    // res.send("Hello world!");
+    // res.send("app.get('/lists')");
 
-    List.find({}).then((lists) => {
-        res.send(lists); 
-    });
+    // List.find({}).then((lists) => {
+    //     res.send(lists); 
+    // });
 })
 
 
@@ -50,15 +50,16 @@ app.get('/lists', (req, res) => {
 app.post('/lists', (req, res) => {
     // we want to create a new list and return the new list document back to the user (which includes the id)
     // the list information (fields) will be passed in via the JSON request body
-    let title = req.body.title; 
+    // let title = req.body.title; 
 
-    let newList = new List({
-        title
-    });
-    newList.save().then((listDoc) => {
-        // the full list document is returned (including the id)
-        res.send(listDoc);
-    })
+    // let newList = new List({
+    //     title
+    // });
+    // newList.save().then((listDoc) => {
+    //     // the full list document is returned (including the id)
+    //     res.send(listDoc);
+    // })
+    // res.send("app.post('lists')"); 
 });
 
 
@@ -68,11 +69,11 @@ app.post('/lists', (req, res) => {
  */
 app.patch(`/lists/:id`, (req, res) => {
     // We want to update the specified list with the new values specified in the JSON body of the req
-    List.findOneAndUpdate({ _id: req.params.id }, {
-        $set: req.body
-    }).then(() => {
-        res.send({ 'message': 'updated successfully'}); 
-    })
+    // List.findOneAndUpdate({ _id: req.params.id }, {
+    //     $set: req.body
+    // }).then(() => {
+    //     res.send({ 'message': 'updated successfully'}); 
+    // })
 
 });
 
@@ -83,62 +84,62 @@ app.patch(`/lists/:id`, (req, res) => {
  */
 app.delete(`/lists/:id`, (req, res) => {
     // We want to delete the specified list 
-    List.findOneAndRemove({
-        _id: req.params.id
-    }).then((removedListDoc) => {
-        res.send(removedListDoc); 
-    })
+    // List.findOneAndRemove({
+    //     _id: req.params.id
+    // }).then((removedListDoc) => {
+    //     res.send(removedListDoc); 
+    // })
 });
 
 app.get(`/lists/:listId/tasks`, (req, res) => {
     // we want to return all tasks that belong to a specific list (specified by listId
-    Task.find({
-        _listId: req.params.listId
-    }).then((tasks) => {
-        res.send(tasks); 
-    })
+    // Task.find({
+    //     _listId: req.params.listId
+    // }).then((tasks) => {
+    //     res.send(tasks); 
+    // })
 });
 
 app.get('/lists/:listId/tasks/:taskId', (req, res) => {
-    Task.findOne({
-        _id: req.params.taskId,
-        _listId: req.params.listId
-    }).then((task) => {
-        res.send(task)
-    })
+    // Task.findOne({
+    //     _id: req.params.taskId,
+    //     _listId: req.params.listId
+    // }).then((task) => {
+    //     res.send(task)
+    // })
 });
 
 // we aren't going to use this one 
 app.post('/lists/:listId/tasks', (req, res) => {
     // we want to create a new task in the list specified by the listId
-    let newTask = new Task({
-        title: req.body.title,
-        _listId: req.params.listId
-    }); 
-    newTask.save().then((newTaskDoc) => {
-        res.send(newTaskDoc); 
-    })
+    // let newTask = new Task({
+    //     title: req.body.title,
+    //     _listId: req.params.listId
+    // }); 
+    // newTask.save().then((newTaskDoc) => {
+    //     res.send(newTaskDoc); 
+    // })
 })
 
 app.patch('/lists/:listId/tasks/:taskId', (req, res) => {
     // we want to update an existing task (specified by taskId)
-    Task.findOneAndUpdate({ 
-        _id: req.params.taskId,
-        _listId: req.params.listId
-    }, {
-        $set: req.body
-    }).then(() => {
-        res.send({message: 'Updated successfully'}); 
-    })
+    // Task.findOneAndUpdate({ 
+    //     _id: req.params.taskId,
+    //     _listId: req.params.listId
+    // }, {
+    //     $set: req.body
+    // }).then(() => {
+    //     res.send({message: 'Updated successfully'}); 
+    // })
 });
 
 app.delete('/lists/:listId/tasks/:taskId', (req, res) => {
-    Task.findOneAndRemove({
-        _id: req.params.taskId,
-        _listId: req.params.listId
-    }).then((removedTaskDoc) => {
-        res.send(removedTaskDoc);
-    })
+    // Task.findOneAndRemove({
+    //     _id: req.params.taskId,
+    //     _listId: req.params.listId
+    // }).then((removedTaskDoc) => {
+    //     res.send(removedTaskDoc);
+    // })
 });
 
 app.listen(3000, () => {
